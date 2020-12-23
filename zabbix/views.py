@@ -5,7 +5,7 @@ from pyzabbix import ZabbixAPI, ZabbixAPIException
 
 def index(request):
     #ZABBIX API
-    url = 'http://192.168.0.29/zabbix'
+    url = 'http://192.168.0.28/zabbix'
     def Get_host(id):
         result = zapi.item.get(itemids=id)
         for data in result:
@@ -19,12 +19,13 @@ def index(request):
             return temp
 
     zapi = ZabbixAPI(url)  # addr serwera
+    zapi.login("Admin", "zabbix")
     zapi.session.verify = False  # nie spr popr cert
     try:
-        speed_dawid = Get_host(30694)
-        speed_scrooch = Get_host(30625)
-        temperatura_dom = float(Get_item(31107))
-        wilgotnosc_dom = float(Get_item(31108))
+        speed_dawid = Get_host(32110)
+        speed_scrooch = Get_host(31768)
+        temperatura_dom = float(Get_item(31632))
+        wilgotnosc_dom = float(Get_item(31653))
     except Exception as e:
         print(e)
     zapi.user.logout()
